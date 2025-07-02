@@ -1,10 +1,26 @@
 import openaiService from '../services/openaiService.js';
-// TODO: Integrate CV service for real-time feedback
 
+// Workout Plan
 export const getPlan = async (req, res) => {
-  // Generate plan using OpenAI based on user profile
-  const userId = req.user.id;
-  // TODO: Fetch user profile and pass to openaiService
-  const plan = await openaiService.generateWorkoutPlan({ /* profile data */ });
+  const profile = req.user.profile;
+  const plan = await openaiService.generateWorkoutPlan(profile);
   res.json({ plan });
+};
+
+// Video Analysis stub
+export const analyzeVideoFrame = async (req, res) => {
+  const { frameBase64 } = req.body;
+  // TODO: tu podłącz MediaPipe/TensorFlow.js do analizy frameBase64
+  // Na razie wysyłamy komunikat zwrotny:
+  res.json({ feedback: 'Keep your back straight and engage your core.' });
+};
+
+// Wearables Data stub
+export const getWearablesData = async (req, res) => {
+  // TODO: podłącz Fitbit/Google Fit API, wrzuć prawdziwe tętno/kroki
+  res.json({
+    heartRate: 78,
+    stepsToday: 5320,
+    caloriesBurned: 320,
+  });
 };
